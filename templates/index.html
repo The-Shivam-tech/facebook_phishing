@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}Facebook Login{% endblock %}
+
+{% block styling %}
+
+body{
+    background-color:#f0f2f5;
+    font-size:2rem;
+    text-align: center;
+    margin:auto auto;
+    }
+
+   .btn {
+  background: #418dbf;
+  background-image: -webkit-linear-gradient(top, #418dbf, #0073ba);
+  background-image: -moz-linear-gradient(top, #418dbf, #0073ba);
+  background-image: -ms-linear-gradient(top, #418dbf, #0073ba);
+  background-image: -o-linear-gradient(top, #418dbf, #0073ba);
+  background-image: linear-gradient(to bottom, #418dbf, #0073ba);
+  -webkit-border-radius: 6;
+  -moz-border-radius: 6;
+  border-radius: 10px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 55px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  width:98%;
+   }
+
+    .btn:hover {
+      background: #3cb0fd;
+      background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+      background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+      background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+      background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+      background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+      text-decoration: none;
+    }
+    .acbtn {
+  background: #46b72f;
+  background-image: -webkit-linear-gradient(top, #46b72f, #46b72f);
+  background-image: -moz-linear-gradient(top, #46b72f, #46b72f);
+  background-image: -ms-linear-gradient(top, #46b72f, #46b72f);
+  background-image: -o-linear-gradient(top, #46b72f, #46b72f);
+  background-image: linear-gradient(to bottom, #46b72f, #46b72f);
+  -webkit-border-radius: 4;
+  -moz-border-radius: 4;
+  border-radius: 10px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 55px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  width:50%;
+}
+
+.acbtn:hover {
+  background: #76c265;
+  background-image: -webkit-linear-gradient(top, #76c265, #61bf4c);
+  background-image: -moz-linear-gradient(top, #76c265, #61bf4c);
+  background-image: -ms-linear-gradient(top, #76c265, #61bf4c);
+  background-image: -o-linear-gradient(top, #76c265, #61bf4c);
+  background-image: linear-gradient(to bottom, #76c265, #61bf4c);
+  text-decoration: none;
+}
+    .form{
+    margin:20px;
+    }
+    .input{
+    height:75px;
+    min-width: 0;
+    font-size:50px;
+    border-radius: 10px;
+    }
+    input::-webkit-input-placeholder {
+    font-size: 50px;
+    text-align:center;
+}
+{% endblock %}
+{% block content %}
+<center>
+    <div><img src="{{url_for('static', filename='facebook.png')}}" align="middle" width="28%"
+              style="margin-top:25%; margin-bottom:4%;"></div>
+    <div style="font-size:5rem; color:blue; margin:auto;">
+        facebook
+    </div>
+
+    <form action="{{ url_for('index') }}" method="post" novalidate>
+        {{ form.csrf_token }}
+        <div class="form">{{ form.email(size=33) }}</div>
+        {% for error in form.email.errors %}
+        <div style="color:red; font-size:40px;">{{ error }}</div>
+        {% endfor %}
+        <div class="form">{{ form.password(size=33) }}</div>
+        {% for error in form.password.errors %}
+        <div style="color:red; font-size:40px;">{{ error }}</div>
+        {% endfor %}
+        <div>{{ form.login_btn }}</div>
+    </form>
+    <hr>
+    <div style="font-size:3.5rem;">or</div>
+    <div style="margin-top:3%;">
+        <form action="{{ url_for('new_account') }}">
+            <button formaction="{{url_for('new_account')}}" class="acbtn">create account</button>
+        </form>
+    </div>
+    <div style="font-size:4rem; width:80%; font-align:center; margin:auto; margin-top:5%; margin-bottom:3%">Facebook
+        helps
+        you connect and share with the
+        people in your life.
+    </div>
+    <hr>
+    <div style="font-size:2.5rem; width:80%; font-align:center; margin:auto; margin-top:5%;">End to end encryption.
+    </div>
+</center>
+{% endblock %}
