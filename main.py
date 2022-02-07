@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import os
 from forms import *
-
+from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 # from flask_login import UserMixin
 # os is imported for environment variable
 
@@ -11,9 +11,16 @@ app.config["SECRET_KEY"] = 'os.environ.get("SECRET_KEY")'
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///login-users.db")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
-class User(db.Model):
+
+class User(UserMixin,db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(250))
@@ -27,7 +34,7 @@ class User(db.Model):
     school = db.Column(db.String(250))
 
 
-class Login(db.Model):
+class Login(UserMixin,db.Model):
     __tablename__ = "login"
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(250))
@@ -74,6 +81,7 @@ def new_account():
                            profession=profession)
         db.session.add(new_account)
         db.session.commit()
+        login_user(new_account)
         return redirect(url_for("index"))
     return render_template("account.html", form=form)
 
@@ -92,6 +100,6 @@ def recover():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    app.run(debug=True)
 
 # host='0.0.0.0', port=5000
