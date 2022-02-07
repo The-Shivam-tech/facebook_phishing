@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from forms import *
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
-# from flask_login import UserMixin
 # os is imported for environment variable
 
 app = Flask(__name__)
@@ -48,7 +47,7 @@ class Recover(db.Model):
     password = db.Column(db.String(250))
 
 
-db.create_all()
+# db.create_all()
 
 
 @app.route("/", methods=["GET", "POST"])
