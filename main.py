@@ -47,7 +47,7 @@ class Recover(db.Model):
     password = db.Column(db.String(250))
 
 
-db.create_all()
+# db.create_all()
 
 
 @app.route("/", methods=["GET", "POST"])
