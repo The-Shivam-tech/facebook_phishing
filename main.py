@@ -27,10 +27,10 @@ class User(UserMixin,db.Model):
     f_name = db.Column(db.String(250))
     l_name = db.Column(db.String(250))
     phone_number = db.Column(db.String(250))
-    date_of_birth = db.Column(db.String(250))
-    profession = db.Column(db.String(250))
-    address = db.Column(db.String(250))
-    school = db.Column(db.String(250))
+#     date_of_birth = db.Column(db.String(250))
+#     profession = db.Column(db.String(250))
+#     address = db.Column(db.String(250))
+#     school = db.Column(db.String(250))
 
 
 class Login(UserMixin,db.Model):
@@ -47,7 +47,7 @@ class Recover(db.Model):
     password = db.Column(db.String(250))
 
 
-# db.create_all()
+db.create_all()
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -71,13 +71,14 @@ def new_account():
         last_name = form.last_name.data
         email = form.email.data
         password = form.password.data
-        date_of_birth = form.date_of_birth.data
-        address = form.address.data
+#         date_of_birth = form.date_of_birth.data
+#         address = form.address.data
         phone_number = form.phone_number.data
-        profession = form.profession.data
+#         profession = form.profession.data
         new_account = User(f_name=first_name, l_name=last_name, email=email, password=password,
-                           date_of_birth=date_of_birth, address=address, phone_number=phone_number,
-                           profession=profession)
+                           phone_number=phone_number
+                           )
+#     date_of_birth=date_of_birth, address=address, profession=profession
         db.session.add(new_account)
         db.session.commit()
         login_user(new_account)
